@@ -5,6 +5,4 @@ seaborn
 scikit-learn
 notebook
 scipy
-imblearn
-xgboost
 ydf
