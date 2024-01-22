@@ -5,7 +5,7 @@ seaborn
 scikit-learn
 notebook
 scipy
-tensorflow-decision-forests
+ydf
 mlflow==2.2.2
 python-box==6.0.2
 PyYAML
