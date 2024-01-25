@@ -1,1 +1,34 @@
-key: value
+COLUMNS:
+  age: int64
+  sex: object
+  on_thyroxine: object
+  query_on_thyroxine: object
+  on_antihyroid_meds: object
+  sick: object
+  pregnant: object
+  thyroid_surgery: object
+  I131_treatment: object
+  query_hypothyroid: object
+  query hyperthyroid: object
+  lithium: object
+  goitre: object
+  tumor: object
+  hypopituitary: object
+  psych: object
+  TSH_measured: object
+  TSH: object
+  T3_measured: object
+  T3: object
+  TT4_measured: object
+  TT4: object
+  T4U_measured: object
+  T4U: object
+  FTI_measured: object
+  FTI: object
+  TBG_measured: object
+  TBG: object
+  referral_source: object
+  target: object
+
+TARGET_COLUMN:
+  name: target
