@@ -1,7 +1,8 @@
 from ThyroidProject.constants import *
 from ThyroidProject.utils.common import read_yaml, create_directories
 from ThyroidProject.entity.config_entity import (DataIngestionConfig,
-                                                 DataValidationConfig)
+                                                 DataValidationConfig,
+                                                 DataTransformationConfig)
 
 
 class ConfigurationManager:
@@ -72,3 +73,29 @@ class ConfigurationManager:
         )
 
         return data_validation_config
+
+
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        """
+            This function returns the data transformation configuration.
+
+            Args:
+                self (DataTransformation): An instance of the DataTransformation class.
+
+            Returns:
+                DataTransformationConfig: The data transformation configuration.
+
+            """
+        config = self.config.data_transformation
+        schema = self.schema.COLUMNS
+
+        create_directories([config.root_dir])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+            columns=schema
+
+        )
+
+        return data_transformation_config
