@@ -27,6 +27,7 @@ dependencies:
       - absl-py==2.1.0
       - alembic==1.13.1
       - anyio==4.2.0
+      - appdirs==1.4.4
       - argon2-cffi==23.1.0
       - argon2-cffi-bindings==21.2.0
       - arrow==1.3.0
@@ -51,15 +52,21 @@ dependencies:
       - debugpy==1.8.0
       - decorator==5.1.1
       - defusedxml==0.7.1
+      - distro==1.9.0
       - docker==7.0.0
       - ensure==1.0.2
       - entrypoints==0.4
+      - evidently==0.4.14
       - executing==2.0.1
+      - fastapi==0.109.0
+      - fastapi-restful==0.5.0
       - fastjsonschema==2.19.1
+      - filelock==3.13.1
       - flask==3.0.1
       - flatbuffers==23.5.26
       - fonttools==4.47.2
       - fqdn==1.5.1
+      - fsspec==2023.12.2
       - gast==0.5.4
       - gitdb==4.0.11
       - gitpython==3.1.41
@@ -69,12 +76,14 @@ dependencies:
       - greenlet==3.0.3
       - grpcio==1.60.0
       - gunicorn==21.2.0
+      - h11==0.14.0
       - h5py==3.10.0
       - idna==3.6
       - importlib-metadata==7.0.1
       - ipykernel==6.29.0
       - ipython==8.20.0
       - isoduration==20.11.0
+      - iterative-telemetry==0.0.8
       - itsdangerous==2.1.2
       - jedi==0.19.1
       - jinja2==3.1.3
@@ -97,16 +106,20 @@ dependencies:
       - libclang==16.0.6
       - mako==1.3.0
       - markdown==3.5.2
+      - markdown-it-py==3.0.0
       - markupsafe==2.1.4
       - matplotlib==3.8.2
       - matplotlib-inline==0.1.6
+      - mdurl==0.1.2
       - mistune==3.0.2
       - ml-dtypes==0.2.0
       - mlflow==2.10.0
+      - mypy-extensions==1.0.0
       - nbclient==0.9.0
       - nbconvert==7.14.2
       - nbformat==5.9.2
       - nest-asyncio==1.6.0
+      - nltk==3.8.1
       - notebook==7.0.7
       - notebook-shim==0.2.3
       - numpy==1.26.3
@@ -117,9 +130,11 @@ dependencies:
       - pandas==2.2.0
       - pandocfilters==1.5.1
       - parso==0.8.3
+      - patsy==0.5.6
       - pexpect==4.9.0
       - pillow==10.2.0
       - platformdirs==4.1.0
+      - plotly==5.18.0
       - prometheus-client==0.19.0
       - prompt-toolkit==3.0.43
       - protobuf==4.23.4
@@ -130,6 +145,7 @@ dependencies:
       - pyasn1==0.5.1
       - pyasn1-modules==0.3.0
       - pycparser==2.21
+      - pydantic==1.10.14
       - pygments==2.17.2
       - pyjwt==2.8.0
       - pyparsing==3.1.1
@@ -141,10 +157,12 @@ dependencies:
       - pyzmq==25.1.2
       - querystring-parser==1.2.4
       - referencing==0.32.1
+      - regex==2023.12.25
       - requests==2.31.0
       - requests-oauthlib==1.3.1
       - rfc3339-validator==0.1.4
       - rfc3986-validator==0.1.1
+      - rich==13.7.0
       - rpds-py==0.17.1
       - rsa==4.9
       - scikit-learn==1.4.0
@@ -158,7 +176,10 @@ dependencies:
       - sqlalchemy==2.0.25
       - sqlparse==0.4.4
       - stack-data==0.6.3
+      - starlette==0.35.1
+      - statsmodels==0.14.1
       - tabulate==0.9.0
+      - tenacity==8.2.3
       - tensorboard==2.15.1
       - tensorboard-data-server==0.7.2
       - tensorflow==2.15.0.post1
@@ -170,13 +191,18 @@ dependencies:
       - threadpoolctl==3.2.0
       - tinycss2==1.2.1
       - tornado==6.4
+      - tqdm==4.66.1
       - traitlets==5.14.1
+      - typer==0.9.0
       - types-python-dateutil==2.8.19.20240106
       - types-pyyaml==6.0.12.12
       - typing-extensions==4.9.0
+      - typing-inspect==0.9.0
       - tzdata==2023.4
       - uri-template==1.3.0
       - urllib3==2.1.0
+      - uvicorn==0.27.0
+      - watchdog==3.0.0
       - wcwidth==0.2.13
       - webcolors==1.13
       - webencodings==0.5.1
