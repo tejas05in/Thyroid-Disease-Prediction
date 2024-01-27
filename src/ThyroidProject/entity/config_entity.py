@@ -23,3 +23,18 @@ class DataTransformationConfig:
     root_dir: Path
     data_path: Path
     columns: dict
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    model_name: str
+    categorical_algorithm: str
+    l1_regularization: float
+    l2_categorical_regularization: float
+    l2_regularization: float
+    max_depth: int
+    num_trees: int
+    target_column: str

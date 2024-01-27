@@ -2,7 +2,8 @@ from ThyroidProject.constants import *
 from ThyroidProject.utils.common import read_yaml, create_directories
 from ThyroidProject.entity.config_entity import (DataIngestionConfig,
                                                  DataValidationConfig,
-                                                 DataTransformationConfig)
+                                                 DataTransformationConfig,
+                                                 ModelTrainerConfig)
 
 
 class ConfigurationManager:
@@ -25,7 +26,7 @@ class ConfigurationManager:
             FileNotFoundError: If the configuration, parameters, or schema files cannot be found.
             ValueError: If the configuration or parameters files are not valid YAML files.
         """
-        
+
         # Read the configuration, parameters, and schema files
         self.config = read_yaml(config_filepath)
         self.params = read_yaml(params_filepath)
@@ -52,7 +53,7 @@ class ConfigurationManager:
             unzip_dir=config.unzip_dir
         )
         return data_ingestion_config
-    
+
     def get_data_validation_config(self) -> DataValidationConfig:
         """
         Get the data validation configuration.
@@ -73,7 +74,6 @@ class ConfigurationManager:
         )
 
         return data_validation_config
-
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
         """
@@ -99,3 +99,36 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """
+            This function returns the ModelTrainerConfig object that contains the configuration for the model training process.
+
+            Args:
+                None
+
+            Returns:
+                ModelTrainerConfig: The ModelTrainerConfig object containing the configuration for the model training process
+
+            """
+        config = self.config.model_trainer
+        params = self.params.GradientBoostedTreesLearner
+        schema = self.schema.TARGET_COLUMN
+
+        create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+            model_name=config.model_name,
+            categorical_algorithm=params.categorical_algorithm,
+            l1_regularization=params.l1_regularization,
+            l2_categorical_regularization=params.l2_categorical_regularization,
+            l2_regularization=params.l2_regularization,
+            max_depth=params.max_depth,
+            num_trees=params.num_trees,
+            target_column=schema.name,
+        )
+        return model_trainer_config
