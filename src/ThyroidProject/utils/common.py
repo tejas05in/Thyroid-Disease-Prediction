@@ -64,7 +64,7 @@ def save_json(path: Path, data: dict):
     """
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
-    logger.info("json file saved at:{path}")
+    logger.info(f"json file saved at:{path}")
 
 
 @ensure_annotations
@@ -80,7 +80,7 @@ def load_json(path: Path) -> ConfigBox:
     """
     with open(path) as f:
         content = json.load(f)
-    logger.info("json file loaded successfully from : {path}")
+    logger.info(f"json file loaded successfully from : {path}")
     return ConfigBox(content)
 
 

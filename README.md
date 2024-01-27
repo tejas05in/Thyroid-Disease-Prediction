@@ -12,3 +12,23 @@ Thyroid Disease Prediction ML project
 7. Update pipeline
 8. Update the main.py
 9. Update the app.py
+
+## mlflow experiments
+
+
+MLFLOW_TRACKING_URI=https://dagshub.com/tejas05in/Thyroid-Disease-Prediction.mlflow \
+MLFLOW_TRACKING_USERNAME=tejas05in \
+MLFLOW_TRACKING_PASSWORD=9efcb5c7b79d0e949378459b922b1462a80fa413 
+
+
+Run this to export as env variables:
+
+```bash
+
+export MLFLOW_TRACKING_URI=https://dagshub.com/tejas05in/Thyroid-Disease-Prediction.mlflow
+
+export MLFLOW_TRACKING_USERNAME=tejas05in 
+
+export MLFLOW_TRACKING_PASSWORD=9efcb5c7b79d0e949378459b922b1462a80fa413
+
+```
