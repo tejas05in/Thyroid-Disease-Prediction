@@ -41,6 +41,9 @@ class DataTransformation:
             # age cannot be 65526
             # capping age to 100 years
             df = df[df["age"] <= 100]
+            
+            #drop duplicates
+            df.drop_duplicates(inplace=True)
 
             # Remove reduntant columns
             df.drop(['TSH_measured', 'T3_measured', 'TT4_measured', 'T4U_measured', 'FTI_measured',
