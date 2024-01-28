@@ -35,3 +35,4 @@ class ModelTrainer:
         inspector.export_to_tensorboard(os.path.join(
             self.config.root_dir, "tensorboard_logs"))
         model.save(os.path.join(self.config.root_dir, self.config.model_name))
+        model.save('model')

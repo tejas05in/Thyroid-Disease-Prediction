@@ -49,3 +49,14 @@ class ModelEvaluationConfig:
     metric_file_name: Path
     target_column: str
     mlflow_uri: str
+
+
+@dataclass(frozen=True)
+class DriftMonitoringConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    model_path: Path
+    report_path_name: str
+    test_path_name: str
+    target_column: str

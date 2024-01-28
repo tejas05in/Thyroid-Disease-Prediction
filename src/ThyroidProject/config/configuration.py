@@ -4,7 +4,8 @@ from ThyroidProject.entity.config_entity import (DataIngestionConfig,
                                                  DataValidationConfig,
                                                  DataTransformationConfig,
                                                  ModelTrainerConfig,
-                                                 ModelEvaluationConfig)
+                                                 ModelEvaluationConfig,
+                                                 DriftMonitoringConfig)
 
 
 class ConfigurationManager:
@@ -161,3 +162,34 @@ class ConfigurationManager:
         )
 
         return model_evaluation_config
+
+    def get_drift_monitoring_config(self) -> DriftMonitoringConfig:
+        """
+        Get the Drift Monitoring Config.
+
+        Returns:
+            DriftMonitoringConfig: The Drift Monitoring Config.
+
+        """
+        # Load the config file
+        config = self.config.drift_monitoring
+        # Load the params file
+        params = self.params.GradientBoostedTreesLearner
+        # Load the schema file
+        schema = self.schema.TARGET_COLUMN
+
+        # Create the directories
+        create_directories([config.root_dir])
+
+        # Create the DriftMonitoringConfig object
+        drift_monitoring_config = DriftMonitoringConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+            model_path=config.model_path,
+            report_path_name=config.report_path_name,
+            test_path_name=config.test_path_name,
+            target_column=schema.name
+        )
+
+        return drift_monitoring_config
