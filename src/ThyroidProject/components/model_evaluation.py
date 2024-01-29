@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from urllib.parse import urlparse
+import dagshub
 import mlflow
 import numpy as np
 import tensorflow as tf
@@ -46,6 +47,9 @@ class ModelEvaluation:
         # Save the metrics as a local file
         # scores = {"accuray": evaluation["accuracy"], "loss": evaluation["loss"]}
         save_json(path=Path(self.config.metric_file_name), data=evaluation)
+        
+        # initialize the dagshub repo
+        dagshub.init("Thyroid-Disease-Prediction", "tejas05in", mlflow=True)
 
         # Set the mlflow tracking uri
         mlflow.set_registry_uri(self.config.mlflow_uri)
