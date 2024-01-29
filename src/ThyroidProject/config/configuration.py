@@ -104,15 +104,15 @@ class ConfigurationManager:
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         """
-            This function returns the ModelTrainerConfig object that contains the configuration for the model training process.
+        This function returns the ModelTrainerConfig object that contains the configuration for the model training process.
 
-            Args:
-                None
+        Args:
+            None
 
-            Returns:
-                ModelTrainerConfig: The ModelTrainerConfig object containing the configuration for the model training process
+        Returns:
+            ModelTrainerConfig: The ModelTrainerConfig object containing the configuration for the model training process
 
-            """
+        """
         config = self.config.model_trainer
         params = self.params.GradientBoostedTreesLearner
         schema = self.schema.TARGET_COLUMN
@@ -122,14 +122,8 @@ class ConfigurationManager:
         model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
             train_data_path=config.train_data_path,
-            test_data_path=config.test_data_path,
             model_name=config.model_name,
-            categorical_algorithm=params.categorical_algorithm,
-            l1_regularization=params.l1_regularization,
-            l2_categorical_regularization=params.l2_categorical_regularization,
-            l2_regularization=params.l2_regularization,
-            max_depth=params.max_depth,
-            num_trees=params.num_trees,
+            parameters=params,
             target_column=schema.name,
         )
         return model_trainer_config

@@ -29,14 +29,8 @@ class DataTransformationConfig:
 class ModelTrainerConfig:
     root_dir: Path
     train_data_path: Path
-    test_data_path: Path
     model_name: str
-    categorical_algorithm: str
-    l1_regularization: float
-    l2_categorical_regularization: float
-    l2_regularization: float
-    max_depth: int
-    num_trees: int
+    parameters: dict
     target_column: str
 
 

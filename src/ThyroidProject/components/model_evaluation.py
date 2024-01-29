@@ -26,7 +26,6 @@ class ModelEvaluation:
             None
 
         """
-        mlflow.tensorflow.autolog()
 
         # Load the test data
         test_data = pd.read_csv(self.config.test_data_path)
