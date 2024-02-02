@@ -9,7 +9,7 @@ COLUMNS:
   thyroid_surgery: object
   I131_treatment: object
   query_hypothyroid: object
-  query hyperthyroid: object
+  query_hyperthyroid: object
   lithium: object
   goitre: object
   tumor: object
