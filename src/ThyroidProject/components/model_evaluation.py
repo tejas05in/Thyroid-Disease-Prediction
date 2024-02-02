@@ -47,7 +47,7 @@ class ModelEvaluation:
         # Save the metrics as a local file
         # scores = {"accuray": evaluation["accuracy"], "loss": evaluation["loss"]}
         save_json(path=Path(self.config.metric_file_name), data=evaluation)
-        
+
         # initialize the dagshub repo
         dagshub.init("Thyroid-Disease-Prediction", "tejas05in", mlflow=True)
 
@@ -76,6 +76,6 @@ class ModelEvaluation:
             # Register the model
             if tracking_uri_type_store != 'file':
                 mlflow.tensorflow.log_model(
-                    model, 'model', registered_model_name="GradientBoostedTreesModel", conda_env="conda.yaml")
+                    model, 'model', registered_model_name="GradientBoostedTreesModel", pip_requirements='requirements.txt')
             else:
                 mlflow.tensorflow.log_model(model, 'model')
