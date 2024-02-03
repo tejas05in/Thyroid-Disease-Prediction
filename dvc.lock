@@ -1,0 +1,180 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/ThyroidProject/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: src/ThyroidProject/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: d789dd313328a457e0ba882aeb7da8f9
+      size: 1411
+    outs:
+    - path: artifacts/data_ingestion/
+      hash: md5
+      md5: efd603c27dafa5683339468a7468bede.dir
+      size: 1397566
+      nfiles: 2
+  data_validation:
+    cmd: python src/ThyroidProject/pipeline/stage_02_data_validation.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: schema.yaml
+      hash: md5
+      md5: a25ec563953f45e9668e6bc8a5eaf8b7
+      size: 676
+    - path: src/ThyroidProject/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 318dd9d9a29746f4e09d5543e0eeb6b9
+      size: 1345
+    outs:
+    - path: artifacts/data_validation/status.txt
+      hash: md5
+      md5: 86e6a2f694c57a675b3e2da6b95ff9ba
+      size: 23
+  data_transformation:
+    cmd: python src/ThyroidProject/pipeline/stage_03_data_transformation.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: schema.yaml
+      hash: md5
+      md5: a25ec563953f45e9668e6bc8a5eaf8b7
+      size: 676
+    - path: src/ThyroidProject/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 318dd9d9a29746f4e09d5543e0eeb6b9
+      size: 1345
+    - path: src/ThyroidProject/pipeline/stage_03_data_transformation.py
+      hash: md5
+      md5: 810ba8a21765176ad40ac6afd7b3006e
+      size: 1639
+    outs:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
+  model_trainer:
+    cmd: python src/ThyroidProject/pipeline/stage_04_model_trainer.py
+    deps:
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: params.yaml
+      hash: md5
+      md5: aae2d7c186363bb212f27a4f9857221d
+      size: 185
+    - path: schema.yaml
+      hash: md5
+      md5: a25ec563953f45e9668e6bc8a5eaf8b7
+      size: 676
+    - path: src/ThyroidProject/pipeline/stage_04_model_trainer.py
+      hash: md5
+      md5: 5dc5cc3f465d4c8071b501c537ff721e
+      size: 1619
+    params:
+      params.yaml:
+        GradientBoostedTreesLearner:
+          categorical_algorithm: CART
+          l1_regularization: 0.0
+          l2_categorical_regularization: 1.0
+          l2_regularization: 0.0
+          max_depth: 6
+          num_trees: 300
+    outs:
+    - path: artifacts/model_trainer/model
+      hash: md5
+      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      size: 335321
+      nfiles: 5
+  model_evaluation:
+    cmd: python src/ThyroidProject/pipeline/stage_05_model_evaluation.py
+    deps:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
+    - path: artifacts/model_trainer/model
+      hash: md5
+      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      size: 335321
+      nfiles: 5
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: params.yaml
+      hash: md5
+      md5: aae2d7c186363bb212f27a4f9857221d
+      size: 185
+    - path: schema.yaml
+      hash: md5
+      md5: a25ec563953f45e9668e6bc8a5eaf8b7
+      size: 676
+    - path: src/ThyroidProject/pipeline/stage_05_model_evaluation.py
+      hash: md5
+      md5: 6f070bb7e3c1db1078884efe1590db5f
+      size: 1475
+    params:
+      params.yaml:
+        GradientBoostedTreesLearner:
+          categorical_algorithm: CART
+          l1_regularization: 0.0
+          l2_categorical_regularization: 1.0
+          l2_regularization: 0.0
+          max_depth: 6
+          num_trees: 300
+    outs:
+    - path: artifacts/model_evaluation/metrics.html
+      hash: md5
+      md5: b43d7adc13032b52de587cbae06563d4
+      size: 86559
+  drift_monitoring:
+    cmd: python src/ThyroidProject/pipeline/stage_06_drift_monitoring.py
+    deps:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
+    - path: artifacts/model_trainer/model
+      hash: md5
+      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      size: 335321
+      nfiles: 5
+    - path: config/config.yaml
+      hash: md5
+      md5: 92e65f8a5f5f3debc0451624f01bb230
+      size: 1237
+    - path: src/ThyroidProject/pipeline/stage_06_drift_monitoring.py
+      hash: md5
+      md5: 1d9ff99c4f783b6d3b7ffbdac9e997cc
+      size: 1021
+    outs:
+    - path: artifacts/drift_monitoring/report.html
+      hash: md5
+      md5: 7ba3a304d6ee75c484d0121d28659f59
+      size: 5154584
+    - path: artifacts/drift_monitoring/test.html
+      hash: md5
+      md5: e4203f413b1f98ee4fb8558963684a77
+      size: 3849619
