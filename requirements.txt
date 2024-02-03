@@ -5,7 +5,6 @@ seaborn
 scikit-learn
 notebook
 scipy
-tensorflow-decision-forests
 mlflow==2.10.0
 python-box==6.0.2
 PyYAML
@@ -15,4 +14,5 @@ types-PyYAML
 dagshub
 evidently
 streamlit
+ydf
 -e .

@@ -1,7 +1,7 @@
 import pandas as pd
 from ThyroidProject import logger
 from ThyroidProject.entity.config_entity import ModelTrainerConfig
-import tensorflow_decision_forests as tfdf
+import ydf
 import os
 
 
@@ -15,19 +15,11 @@ class ModelTrainer:
         """
         train_data = pd.read_csv(self.config.train_data_path)
 
-        tf_dataset = tfdf.keras.pd_dataframe_to_tf_dataset(
-            train_data, label=self.config.target_column, max_num_classes=3)
-        print(tf_dataset)
-
-        model = tfdf.keras.GradientBoostedTreesModel(
-            **self.config.parameters
-        )
-        model.fit(tf_dataset)
-        inspector = model.make_inspector()
-        logger.info(
-            f"The results of the model building are: {inspector.training_logs()}")
-        inspector.export_to_tensorboard(os.path.join(
-            self.config.root_dir, "tensorboard_logs"))
-        # saving the trained model for serving
+        # Hyperparameter templates
+        templates = ydf.GradientBoostedTreesLearner.hyperparameter_templates()
+        model = ydf.GradientBoostedTreesLearner(label=self.config.target_column,
+                                                task=ydf.Task.CLASSIFICATION, **templates["better_defaultv1"], **self.config.parameters).train(train_data)
         model.save(os.path.join(self.config.root_dir, self.config.model_name))
-        model.save('model')
+        # Training Description of the model
+        with open(os.path.join(self.config.root_dir, "model_description.html"), "w") as f:
+            f.write(model.describe()._html)
