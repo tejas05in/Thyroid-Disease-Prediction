@@ -1,15 +1,20 @@
-import os
 import pandas as pd
 from urllib.parse import urlparse
 import dagshub
 import mlflow
-import numpy as np
-import tensorflow as tf
-import tensorflow_decision_forests as tfdf
-from ThyroidProject.utils.common import save_json
+import ydf
 from mlflow.data.pandas_dataset import PandasDataset
 from ThyroidProject.entity.config_entity import ModelEvaluationConfig
-from pathlib import Path
+
+
+class CustomModelWrapper(mlflow.pyfunc.PythonModel):
+    def load_context(self, context):
+        self.model = ydf.load_model(
+            context.artifacts["model"])
+        return self.model
+
+    def predict(self, model_input):
+        return self.model.predict(model_input)
 
 
 class ModelEvaluation:
@@ -31,22 +36,15 @@ class ModelEvaluation:
         # Load the test data
         test_data = pd.read_csv(self.config.test_data_path)
 
-        # Convert the pandas dataframe to a tf.data.Dataset
-        test_ds = tfdf.keras.pd_dataframe_to_tf_dataset(
-            test_data, label=self.config.target_column)
-
         # Load the model
-        model = tf.keras.models.load_model(self.config.model_path)
-
-        # Compile the model
-        model.compile(metrics=["accuracy"])
+        model = ydf.load_model(self.config.model_path)
 
         # Evaluate the model on the test data
-        evaluation = model.evaluate(test_ds, return_dict=True)
+        evaluation = model.evaluate(test_data)
 
-        # Save the metrics as a local file
-        # scores = {"accuray": evaluation["accuracy"], "loss": evaluation["loss"]}
-        save_json(path=Path(self.config.metric_file_name), data=evaluation)
+        # storing the training description in a html file
+        with open(self.config.metric_file_name, "w") as f:
+            f.write(evaluation.html())
 
         # initialize the dagshub repo
         dagshub.init("Thyroid-Disease-Prediction", "tejas05in", mlflow=True)
@@ -70,12 +68,13 @@ class ModelEvaluation:
             mlflow.log_params(self.config.all_params)
 
             # Log the metrics
-            mlflow.log_metric("loss", evaluation["loss"])
-            mlflow.log_metric("accuray", evaluation["accuracy"])
+            mlflow.log_metric("loss", evaluation.loss)
+            mlflow.log_metric("accuray", evaluation.accuracy)
 
             # Register the model
             if tracking_uri_type_store != 'file':
-                mlflow.tensorflow.log_model(
-                    model, 'model', registered_model_name="GradientBoostedTreesModel", pip_requirements='requirements.txt')
+                mlflow.pyfunc.log_model(
+                    "model", python_model=CustomModelWrapper(), artifacts={"model": self.config.model_path}, registered_model_name="GradientBoostedTreesModel", pip_requirements='requirements.txt')
             else:
-                mlflow.tensorflow.log_model(model, 'model')
+                mlflow.pyfunc.log_model("model", python_model=CustomModelWrapper(), artifacts={
+                                        "model": self.config.model_path}, registered_model_name="GradientBoostedTreesModel")
