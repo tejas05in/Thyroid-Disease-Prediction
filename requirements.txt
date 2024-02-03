@@ -15,4 +15,5 @@ dagshub
 evidently
 streamlit
 ydf
+dvc
 -e .

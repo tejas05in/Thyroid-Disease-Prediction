@@ -24,6 +24,7 @@ list_of_files = [
     "main.py",
     "app.py",
     "Dockerfile",
+    "dvc.yaml",
     "requirements.txt",
     "setup.py",
     "research/trials.ipynb",

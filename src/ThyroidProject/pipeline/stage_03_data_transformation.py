@@ -1,6 +1,7 @@
 from ThyroidProject.config.configuration import ConfigurationManager
 from ThyroidProject.components.data_transformation import DataTransformation
 from ThyroidProject import logger
+from pathlib import Path
 
 STAGE_NAME = 'Data Transformation Stage'
 
@@ -19,11 +20,17 @@ class DataTransformationTrainingPipeline:
         Returns:
             None
         """
-        config = ConfigurationManager()
-        data_transformation_config = config.get_data_transformation_config()
-        data_transformation = DataTransformation(
-            config=data_transformation_config)
-        data_transformation.data_clenser_splitter()
+        with open(Path("artifacts/data_validation/status.txt"), "r") as f:
+            status = f.read().split(" ")[-1]
+
+        if status == "True":
+            config = ConfigurationManager()
+            data_transformation_config = config.get_data_transformation_config()
+            data_transformation = DataTransformation(
+                config=data_transformation_config)
+            data_transformation.data_clenser_splitter()
+        else:
+            raise Exception("You data schema is not valid")
 
 
 if __name__ == '__main__':
