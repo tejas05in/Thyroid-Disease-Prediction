@@ -20,6 +20,5 @@ class ModelTrainer:
         model = ydf.GradientBoostedTreesLearner(label=self.config.target_column,
                                                 task=ydf.Task.CLASSIFICATION, **templates["better_defaultv1"], **self.config.parameters).train(train_data)
         model.save(os.path.join(self.config.root_dir, self.config.model_name))
-        # Training Description of the model
-        with open(os.path.join(self.config.root_dir, "model_description.html"), "w") as f:
-            f.write(model.describe()._html)
+        
+        logger.info(f"Model Trainer Description: {model.describe()}")

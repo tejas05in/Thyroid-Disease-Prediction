@@ -13,8 +13,7 @@ from evidently.test_suite import TestSuite
 from evidently.test_preset import DataStabilityTestPreset, NoTargetPerformanceTestPreset, MulticlassClassificationTestPreset
 from evidently.tests import *
 
-import tensorflow as tf
-import tensorflow_decision_forests as tfdf
+import ydf
 
 
 class DriftMonitoring:
@@ -39,21 +38,11 @@ class DriftMonitoring:
         X_test = test_df.drop(target, axis=1)
 
         # load model
-        model = tf.keras.models.load_model(self.config.model_path)
-
-        # Create the keras datasets for predictions
-        X_train_data = tfdf.keras.pd_dataframe_to_tf_dataset(X_train)
-        X_test_data = tfdf.keras.pd_dataframe_to_tf_dataset(X_test)
+        model = ydf.load_model(self.config.model_path)
 
         # Make predictions
-        preds = model.predict(X_test_data)
-        y_test_preds = [np.argmax(i) for i in preds]
-        preds = model.predict(X_train_data)
-        y_train_preds = [np.argmax(i) for i in preds]
-
-        # Create the column mapping for predictions
-        train_df["prediction"] = y_train_preds
-        test_df["prediction"] = y_test_preds
+        train_df["prediction"] = [np.argmax(i) for i in model.predict(X_train)]
+        test_df["prediction"] = [np.argmax(i) for i in model.predict(X_test)]
 
         # Identifying categorical and numerical columns
         cat_col = train_df.select_dtypes(include="object").columns
