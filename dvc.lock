@@ -100,7 +100,12 @@ stages:
     outs:
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      md5: 89f780b90dbcfbf34bef49d367f17a15.dir
+      size: 335321
+      nfiles: 5
+    - path: model
+      hash: md5
+      md5: 6b6f2aff1b362c01f2cef3ab89397eb7.dir
       size: 335321
       nfiles: 5
   model_evaluation:
@@ -112,7 +117,7 @@ stages:
       size: 109998
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      md5: 89f780b90dbcfbf34bef49d367f17a15.dir
       size: 335321
       nfiles: 5
     - path: config/config.yaml
@@ -143,7 +148,7 @@ stages:
     outs:
     - path: artifacts/model_evaluation/metrics.html
       hash: md5
-      md5: b43d7adc13032b52de587cbae06563d4
+      md5: 76518a67f280184a1aca6a55acf4a424
       size: 86559
   drift_monitoring:
     cmd: python src/ThyroidProject/pipeline/stage_06_drift_monitoring.py
@@ -158,7 +163,7 @@ stages:
       size: 330044
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: 1758878ef0dbe6a2a5d82423c31fae13.dir
+      md5: 89f780b90dbcfbf34bef49d367f17a15.dir
       size: 335321
       nfiles: 5
     - path: config/config.yaml
@@ -172,9 +177,17 @@ stages:
     outs:
     - path: artifacts/drift_monitoring/report.html
       hash: md5
-      md5: 7ba3a304d6ee75c484d0121d28659f59
-      size: 5154584
+      md5: f056061d6595468f1901cddba892ede5
+      size: 5154576
     - path: artifacts/drift_monitoring/test.html
       hash: md5
-      md5: e4203f413b1f98ee4fb8558963684a77
+      md5: 79405f707a307135a3c43674dba324b3
+      size: 3849619
+    - path: drift_reports/report.html
+      hash: md5
+      md5: d380188df3c7f33746bec16f813c58ee
+      size: 5154576
+    - path: drift_reports/test.html
+      hash: md5
+      md5: 2e355df5a8a93becf5f9e46a055942de
       size: 3849619
