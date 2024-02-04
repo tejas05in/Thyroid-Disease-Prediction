@@ -10,9 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY ./app.py /app
-COPY ./model /app
-COPY ./drift_reports/* /app/drift_reports/
+COPY . /app
 
 RUN pip3 install -r requirements.txt
 
