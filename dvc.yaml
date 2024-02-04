@@ -39,6 +39,7 @@ stages:
       - GradientBoostedTreesLearner
     outs:
       - artifacts/model_trainer/model
+      - model
 
 
   model_evaluation:
@@ -67,3 +68,5 @@ stages:
     outs:
       - artifacts/drift_monitoring/report.html
       - artifacts/drift_monitoring/test.html
+      - drift_reports/report.html
+      - drift_reports/test.html

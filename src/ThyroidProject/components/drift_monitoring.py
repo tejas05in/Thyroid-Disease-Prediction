@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import os
+from ThyroidProject.utils.common import create_directories
 from ThyroidProject.entity.config_entity import DriftMonitoringConfig
 
 from evidently import ColumnMapping
@@ -27,6 +29,8 @@ class DriftMonitoring:
         Returns:
             None
         """
+        # creating directories
+        create_directories(["drift_reports"])
 
         # Load the data
         train_df = pd.read_csv(self.config.train_data_path)
@@ -73,6 +77,7 @@ class DriftMonitoring:
 
         # save the report
         report.save_html(self.config.report_path_name)
+        report.save_html(os.path.join("drift_reports", "report.html"))
 
         # Perform tests
         test_suite = TestSuite(tests=[
@@ -92,3 +97,4 @@ class DriftMonitoring:
 
         # save the test suite
         test_suite.save_html(self.config.test_path_name)
+        test_suite.save_html(os.path.join("drift_reports", "test.html"))

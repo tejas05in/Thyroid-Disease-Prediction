@@ -20,5 +20,5 @@ class ModelTrainer:
         model = ydf.GradientBoostedTreesLearner(label=self.config.target_column,
                                                 task=ydf.Task.CLASSIFICATION, **templates["better_defaultv1"], **self.config.parameters).train(train_data)
         model.save(os.path.join(self.config.root_dir, self.config.model_name))
-        
+        model.save(self.config.model_name)
         logger.info(f"Model Trainer Description: {model.describe()}")
