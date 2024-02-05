@@ -72,7 +72,8 @@ pip install -r requirements.txt
 streamlit run app.py
 # This will redirect you to the end point in your browser
 ```
-## ![Static Badge](https://img.shields.io/badge/python%20-%20model%20training%20-%20rgb?style=flat&logo=pypi&logoColor=rgb)
+\
+![Static Badge](https://img.shields.io/badge/python%20-%20model%20training%20-%20rgb?style=flat&logo=pypi&logoColor=rgb)
 #### Initialization of training pipeline 
 ```bash
 python main.py
