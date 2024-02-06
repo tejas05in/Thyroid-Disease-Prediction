@@ -110,6 +110,20 @@ def load_bin(path: Path) -> Any:
     data = joblib.load(path)
     logger.info(f"binary file loaded from : {path}")
     return data
+@ensure_annotations
+def read_html_file(file_path: Path) -> str:
+    """
+    Reads an HTML file and returns its contents as a string.
+
+    Args:
+        file_path (Path): Path to the HTML file.
+
+    Returns:
+        str: The contents of the HTML file.
+    """
+    with open(file_path, 'r', encoding="utf-8") as file:
+        html_content = file.read()
+    return html_content
 
 
 @ensure_annotations

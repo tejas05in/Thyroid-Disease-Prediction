@@ -1,6 +1,8 @@
 import numpy as np
 import streamlit as st
 import streamlit.components.v1 as components
+from ThyroidProject.utils.common import read_html_file
+from pathlib import Path
 import pandas as pd
 import ydf
 import os
@@ -14,12 +16,6 @@ target = ['Negative', 'Hypothyroid', 'Hyperthyroid']
 
 # Streamlit App
 
-def read_html_file(file_path):
-    with open(file_path, 'r', encoding="utf-8") as file:
-        html_content = file.read()
-    return html_content
-
-
 def main():
     st.title("Thyroid Disease Prediction App")
     st.image("templates/istockphoto-1316440125-612x612.jpg")
@@ -29,8 +25,8 @@ def main():
     display_button_test = st.button("Test Report")
 
     # File path of your HTML file
-    html_file_path_drift = os.path.join("drift_reports", "report.html")
-    html_file_path_test = os.path.join("drift_reports", "test.html")
+    html_file_path_drift = Path(os.path.join("drift_reports", "report.html"))
+    html_file_path_test = Path(os.path.join("drift_reports", "test.html"))
 
     if display_button_drift:
         # Read HTML content
@@ -66,11 +62,16 @@ def main():
     tumor = st.sidebar.checkbox("Tumor")
     hypopituitary = st.sidebar.checkbox("Hypopituitary")
     psych = st.sidebar.checkbox("Psych")
-    TSH = st.sidebar.number_input(label="TSH", value=None, placeholder="0.005<=TSH<=530.00")
-    T3 = st.sidebar.number_input(label="T3", value=None, placeholder="0.05<=T3<=18.00")
-    TT4 = st.sidebar.number_input(label="TT4", value=None, placeholder="2.00<=TT4<=600.00")
-    T4U = st.sidebar.number_input(label="T4U", value=None, placeholder="0.170<=TT4<=2.33")
-    FTI = st.sidebar.number_input(label="FTI", value=None, placeholder="1.4<=FTI<=881")
+    TSH = st.sidebar.number_input(
+        label="TSH", value=None, placeholder="0.005<=TSH<=530.00")
+    T3 = st.sidebar.number_input(
+        label="T3", value=None, placeholder="0.05<=T3<=18.00")
+    TT4 = st.sidebar.number_input(
+        label="TT4", value=None, placeholder="2.00<=TT4<=600.00")
+    T4U = st.sidebar.number_input(
+        label="T4U", value=None, placeholder="0.170<=TT4<=2.33")
+    FTI = st.sidebar.number_input(
+        label="FTI", value=None, placeholder="1.4<=FTI<=881")
     submit = st.sidebar.button("Submit")
 
     if submit:
@@ -78,17 +79,22 @@ def main():
                 'thyroid_surgery', 'I131_treatment', 'query_hypothyroid', 'query_hyperthyroid', 'lithium', 'goitre',
                 'tumor', 'hypopituitary', 'psych', 'TSH', 'T3', 'TT4', 'T4U', 'FTI']
         data = [age, data_mapping.get(sex), data_mapping.get(on_thyroxine), data_mapping.get(query_on_thyroxine),
-                data_mapping.get(on_antihyroid_meds), data_mapping.get(sick), data_mapping.get(pregnant),
-                data_mapping.get(thyroid_surgery), data_mapping.get(I131_treatment),
-                data_mapping.get(query_hypothyroid), data_mapping.get(query_hyperthyroid), data_mapping.get(lithium),
-                data_mapping.get(goitre), data_mapping.get(tumor), data_mapping.get(hypopituitary),
+                data_mapping.get(on_antihyroid_meds), data_mapping.get(
+                    sick), data_mapping.get(pregnant),
+                data_mapping.get(thyroid_surgery), data_mapping.get(
+                    I131_treatment),
+                data_mapping.get(query_hypothyroid), data_mapping.get(
+                    query_hyperthyroid), data_mapping.get(lithium),
+                data_mapping.get(goitre), data_mapping.get(
+                    tumor), data_mapping.get(hypopituitary),
                 data_mapping.get(psych), TSH, T3, TT4, T4U, FTI]
         df = pd.DataFrame(np.array(data).reshape(1, len(data)), columns=cols)
         preds = model.predict(df)
         result = int(np.argmax(preds, axis=1))
 
         st.subheader("Prediction:")
-        st.write(f"The predicted thyroid disease class is: {target[result].upper()}")
+        st.write(
+            f"The predicted thyroid disease class is: {target[result].upper()}")
 
 
 if __name__ == "__main__":
