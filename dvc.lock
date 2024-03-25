@@ -37,6 +37,7 @@ stages:
       hash: md5
       md5: 86e6a2f694c57a675b3e2da6b95ff9ba
       size: 23
+      isexec: true
   data_transformation:
     cmd: python src/ThyroidProject/pipeline/stage_03_data_transformation.py
     deps:
@@ -59,19 +60,21 @@ stages:
     outs:
     - path: artifacts/data_transformation/test.csv
       hash: md5
-      md5: 5686c5d57633a72afd7c0cdf5cb8e9c6
-      size: 111918
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
+      isexec: true
     - path: artifacts/data_transformation/train.csv
       hash: md5
-      md5: 7803042190029ffc2e1b1d6d10479aed
-      size: 335801
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
+      isexec: true
   model_trainer:
     cmd: python src/ThyroidProject/pipeline/stage_04_model_trainer.py
     deps:
     - path: artifacts/data_transformation/train.csv
       hash: md5
-      md5: 7803042190029ffc2e1b1d6d10479aed
-      size: 335801
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
     - path: config/config.yaml
       hash: md5
       md5: 92e65f8a5f5f3debc0451624f01bb230
@@ -100,20 +103,20 @@ stages:
     outs:
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: dbb997868a2974ab3b63b899baaff84e.dir
-      size: 352255
+      md5: cf89672c2cb3bee0db2806fa3a83a88c.dir
+      size: 335320
       nfiles: 5
   model_evaluation:
     cmd: python src/ThyroidProject/pipeline/stage_05_model_evaluation.py
     deps:
     - path: artifacts/data_transformation/test.csv
       hash: md5
-      md5: 5686c5d57633a72afd7c0cdf5cb8e9c6
-      size: 111918
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: dbb997868a2974ab3b63b899baaff84e.dir
-      size: 352255
+      md5: cf89672c2cb3bee0db2806fa3a83a88c.dir
+      size: 335320
       nfiles: 5
     - path: config/config.yaml
       hash: md5
@@ -143,23 +146,24 @@ stages:
     outs:
     - path: artifacts/model_evaluation/metrics.html
       hash: md5
-      md5: 79b6cf515fcac7de2bc89f8ff84cccae
-      size: 83507
+      md5: 204038d7b77041a4bb6c3b003376fc21
+      size: 86559
+      isexec: true
   drift_monitoring:
     cmd: python src/ThyroidProject/pipeline/stage_06_drift_monitoring.py
     deps:
     - path: artifacts/data_transformation/test.csv
       hash: md5
-      md5: 5686c5d57633a72afd7c0cdf5cb8e9c6
-      size: 111918
+      md5: 86551f4e048b0098084875883be61c78
+      size: 109998
     - path: artifacts/data_transformation/train.csv
       hash: md5
-      md5: 7803042190029ffc2e1b1d6d10479aed
-      size: 335801
+      md5: d1d2a5b1f75d5c9e1f58abaedc3e5393
+      size: 330044
     - path: artifacts/model_trainer/model
       hash: md5
-      md5: dbb997868a2974ab3b63b899baaff84e.dir
-      size: 352255
+      md5: cf89672c2cb3bee0db2806fa3a83a88c.dir
+      size: 335320
       nfiles: 5
     - path: config/config.yaml
       hash: md5
@@ -172,9 +176,11 @@ stages:
     outs:
     - path: artifacts/drift_monitoring/report.html
       hash: md5
-      md5: 244363a772a2ab23855e72731efbaa38
-      size: 5155269
+      md5: ece5f2fc20ef3e7636f74029d2c209b0
+      size: 5155258
+      isexec: true
     - path: artifacts/drift_monitoring/test.html
       hash: md5
-      md5: 29ced8ecf16b001599d4c677563988a5
-      size: 3850289
+      md5: 9cc2a8ef1b2e3b1a4e3633e0c6f7994e
+      size: 3850299
+      isexec: true
