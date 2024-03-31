@@ -148,7 +148,6 @@ stages:
       hash: md5
       md5: 204038d7b77041a4bb6c3b003376fc21
       size: 86559
-      isexec: true
   drift_monitoring:
     cmd: python src/ThyroidProject/pipeline/stage_06_drift_monitoring.py
     deps:
@@ -178,9 +177,7 @@ stages:
       hash: md5
       md5: ece5f2fc20ef3e7636f74029d2c209b0
       size: 5155258
-      isexec: true
     - path: artifacts/drift_monitoring/test.html
       hash: md5
       md5: 9cc2a8ef1b2e3b1a4e3633e0c6f7994e
       size: 3850299
-      isexec: true
